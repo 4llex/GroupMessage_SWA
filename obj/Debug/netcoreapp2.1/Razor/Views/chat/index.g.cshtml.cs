@@ -79,7 +79,7 @@ using GroupMessageApplication.Models.AccountViewModels;
             WriteLiteral("<!doctype html>\r\n<html lang=\"en\">\r\n");
             EndContext();
             BeginContext(191, 1306, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5c394a1ebceb41bb9309c3924048c23b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "85d1ea7cd86d4bed92787cb4431869e9", async() => {
                 BeginContext(197, 1293, true);
                 WriteLiteral(@"
     <!-- Required meta tags -->
@@ -145,7 +145,7 @@ using GroupMessageApplication.Models.AccountViewModels;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(1499, 4720, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eaeda73c1a194ca2a83e6507b49aa6d5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "13d0893d7e854dfe94477b67d1cbcf0b", async() => {
                 BeginContext(1505, 379, true);
                 WriteLiteral(@"
     <h3 class=""text-center"">Welcome</h3>
@@ -234,7 +234,7 @@ using GroupMessageApplication.Models.AccountViewModels;
                     ");
                 EndContext();
                 BeginContext(4002, 1119, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "52aea257db3b4a408b11dd595fc3d1b3", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "367683455fd64c3f9605ee3d277c1847", async() => {
                     BeginContext(4029, 479, true);
                     WriteLiteral(@"
                         <div class=""form-group"">
@@ -318,7 +318,7 @@ WriteAttributeValue("", 4803, user.UserName, 4803, 14, false);
                 WriteLiteral("   ");
                 EndContext();
                 BeginContext(6148, 62, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1a1b73d6ae5145848339256da6c6c86f", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "debc8c4452564f819a0be749c07ddee2", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

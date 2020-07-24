@@ -7,6 +7,7 @@ using GroupMessageApplication.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using PusherServer;
 
 namespace GroupMessageApplication.Controllers
 {
@@ -44,7 +45,7 @@ namespace GroupMessageApplication.Controllers
 
         // CREATE Method is a POST method  that will be used to create a new group.
         [HttpPost]
-        public IActionResult Create([FromBody] NewGroupViewModel group)
+        public async Task<IActionResult> Create([FromBody] NewGroupViewModel group)
         {
             if (group == null || group.GroupName == "")
             {
@@ -58,9 +59,11 @@ namespace GroupMessageApplication.Controllers
             }
 
             Group newGroup = new Group { GroupName = group.GroupName };
+
             // Insert this new group to the database...
             _context.Groups.Add(newGroup);
             _context.SaveChanges();
+
             //Insert into the user group table, group_id and user_id in the user_groups table...
             foreach (string UserName in group.UserNames)
             {
@@ -69,6 +72,23 @@ namespace GroupMessageApplication.Controllers
                 );
                 _context.SaveChanges();
             }
+
+            var options = new PusherOptions
+            {
+                Cluster = "us2",
+                Encrypted = true
+            };
+            var pusher = new Pusher(
+                "1042889",
+                "669fe9e6a16ed660eb58",
+                "4c3349548631a864e575",
+            options);
+            var result = await pusher.TriggerAsync(
+                "group_chat", //channel name
+                "new_group", // event name
+
+            new { newGroup });
+
             return new ObjectResult(new { status = "success", data = newGroup });
         }
     }
