@@ -33,3 +33,4 @@ C:\Users\alex_\source\repos\GroupMessageApplication\GroupMessageApplication\obj\
 C:\Users\alex_\source\repos\GroupMessageApplication\GroupMessageApplication\obj\Debug\netcoreapp2.1\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\alex_\source\repos\GroupMessageApplication\GroupMessageApplication\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LoginPartial.g.cshtml.cs
 C:\Users\alex_\source\repos\GroupMessageApplication\GroupMessageApplication\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.g.cshtml.cs
+C:\Users\alex_\source\repos\GroupMessageApplication\GroupMessageApplication\obj\Debug\netcoreapp2.1\Razor\Views\chat\index.g.cshtml.cs
