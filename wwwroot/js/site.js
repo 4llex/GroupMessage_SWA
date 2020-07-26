@@ -1,128 +1,101 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-// Write your JavaScript code.
+﻿let currentGroupId = null;
 
-//Listen for new group
-// When a new group is created, we will call the reloadGroup() function. To listen for events, we need to initialize Pusher’s Javascript library.
-let currentGroupId = null;
-
-var pusher = new Pusher('PUSHER_APP_KEY', {
-    cluster: 'PUSHER_APP_CLUSTER',
+var pusher = new Pusher('1044657', {
+    cluster: 'us2',
     encrypted: true
 });
 
 var channel = pusher.subscribe('group_chat');
-channel.bind('new_group', function (data) {
+
+channel.bind('new_group', function(data) {
     reloadGroup();
 });
-// -------------------------------------------------
 
-//Create a group by making an AJAX request to /api/group using a POST method. Add the following JavaScript code to /wwwroot/js/site.js:
-$("#CreateNewGroupButton").click(function () {
+$("#CreateNewGroupButton").click(function(){
+    // get all selected users
     let UserNames = $("input[name='UserName[]']:checked")
-        .map(function () {
-            return $(this).val();
-        }).get();
-
-    let data = {
-        GroupName: $("#GroupName").val(),
-        UserNames: UserNames
-    };
-
+                    .map(function(){return $(this).val();}).get();
+    
+    let data = { 
+                GroupName: $("#GroupName").val(),
+                UserNames: UserNames
+        };
+        
     $.ajax({
         type: "POST",
         url: "/api/group",
         data: JSON.stringify(data),
         success: (data) => {
+            reloadGroup();
             $('#CreateNewGroup').modal('hide');
         },
         dataType: 'json',
-        contentType: 'application/json'
+        contentType:'application/json'
     });
-
+    
 });
 
-
-
-//When a user clicks on a group, we’ll make a request to get all messages in that group. Add the following code to wwwroot/js/site.js:
 // When a user clicks on a group, Load messages for that particular group.
-$("#groups").on("click", ".group", function () {
+$(".group").click( function(){
     let group_id = $(this).attr("data-group_id");
 
-    $('.group').css({ "border-style": "none", cursor: "pointer" });
-    $(this).css({ "border-style": "inset", cursor: "default" });
+    $('.group').css({"border-style": "none", cursor:"pointer"});
+    $(this).css({"border-style": "inset", cursor:"default"});
 
-    $("#currentGroup").val(group_id); // update the current group_id to html file...
-    currentGroupId = group_id;
-
+    $("#currentGroup").val(group_id); // update the current group_id to a html form...
+    currentGroupId =  group_id;
+    
     // get all messages for the group and populate it...
-    $.get("/api/message/" + group_id, function (data) {
+    $.get( "/api/message/"+group_id, function( data ) {
         let message = "";
-
-        data.forEach(function (data) {
-            let position = (data.addedBy == $("#UserName").val()) ? " float-right" : "";
-
-            message += `<div class="row chat_message` + position + `">
-                             <b>` + data.addedBy + `: </b>` + data.message +
-                `</div>`;
+        
+        data.forEach(function(data){
+                let position = ( data.addedBy == $("#UserName").val() ) ? " float-right" : "";
+                message += `<div class="row chat_message` + position +`"><b>`+ data.addedBy +`: </b>`+ data.message +` </div>`;
         });
-
+        
         $(".chat_body").html(message);
     });
+    
+   pusher.unsubscribe('private-'+group_id); //unsubscribe
 
-    if (!pusher.channel('private-' + group_id)) { // check if the user have subscribed to the channel before.
-        let group_channel = pusher.subscribe('private-' + group_id);
+   let group_channel = pusher.subscribe('private-'+group_id);
+     
+   group_channel.bind('new_message', function(data) { 
 
-        group_channel.bind('new_message', function (data) {
+        if( currentGroupId == data.new_message.GroupId){
 
-            if (currentGroupId == data.new_message.GroupId) {
-                $(".chat_body").append(`<div class="row chat_message"><b>`
-                    + data.new_message.AddedBy + `: </b>` + data.new_message.message + ` </div>`);
-            }
-        });
-    }  
+             $(".chat_body").append(`<div class="row chat_message"><b>`+ data.new_message.AddedBy +`: </b>`+ data.new_message.message +` </div>`);
+        }
+     });  
 
 });
 
+function reloadGroup(){
+    $.get("/api/group", function( data ) {
+        let groups = "";
+               console.log(data); 
+       data.forEach(function(group){
+           groups += `<div class="group" data-group_id="` +group.groupId+ `">` +group.groupName+  `</div>`;
+       });
+       
+       $("#groups").html(groups);
+    });
+}
 
-
-//Add new message via Ajax
-//When a user clicks on the send message button, we’ll make an AJAX call to the method we added... 
-//above with the message payload so it gets saved in the database.
-$("#SendMessage").click(function () {
+$("#SendMessage").click( function(){
+    
     $.ajax({
         type: "POST",
         url: "/api/message",
-        data: JSON.stringify({
-            AddedBy: $("#UserName").val(),
-            GroupId: $("#currentGroup").val(),
-            message: $("#Message").val(),
-            socketId: pusher.connection.socket_id
-        }),
-        success: (data) => {
-            $(".chat_body").append(`<div class="row chat_message float-right"><b>`
-                + data.data.addedBy + `: </b>` + $("#Message").val() + `</div>`);
-
+        data: JSON.stringify( {AddedBy: $("#UserName").val(), GroupId: $("#currentGroup").val(), message: $("#Message").val(), 
+        socketId: pusher.connection.socket_id} ),
+        success: (data) => { 
+            console.log(data);
+            $(".chat_body").append(`<div class="row chat_message float-right"><b>`+ data.data.addedBy +`: </b>`+ $("#Message").val() +` </div>`);
             $("#Message").val('');
         },
         dataType: 'json',
-        contentType: 'application/json'
+        contentType:'application/json'
     });
 });
-
-
-//Display the new group when a user creates a group
-//When a new group is created, we will reload the groups for every user.Add the following function to
-function reloadGroup() {
-    $.get("/api/group", function (data) {
-        let groups = "";
-
-        data.forEach(function (group) {
-            groups += `<div class="group" data-group_id="`
-                + group.groupId + `">` + group.groupName +
-                `</div>`;
-        });
-
-        $("#groups").html(groups);
-    });
-}

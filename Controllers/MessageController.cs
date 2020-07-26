@@ -39,13 +39,13 @@ namespace GroupMessageApplication.Controllers
 
             var options = new PusherOptions
             {
-                Cluster = "PUSHER_APP_CLUSTER",
+                Cluster = "us2",
                 Encrypted = true
             };
             var pusher = new Pusher(
-                "PUSHER_APP_ID",
-                "PUSHER_APP_KEY",
-                "PUSHER_APP_SECRET",
+                "1042889",
+                "669fe9e6a16ed660eb58",
+                "4c3349548631a864e575",
                 options
             );
             var result = await pusher.TriggerAsync(

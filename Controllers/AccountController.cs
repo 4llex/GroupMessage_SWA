@@ -143,9 +143,9 @@ namespace GroupMessageApplication.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

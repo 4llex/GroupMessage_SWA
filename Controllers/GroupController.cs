@@ -83,11 +83,7 @@ namespace GroupMessageApplication.Controllers
                 "669fe9e6a16ed660eb58",
                 "4c3349548631a864e575",
             options);
-            var result = await pusher.TriggerAsync(
-                "group_chat", //channel name
-                "new_group", // event name
-
-            new { newGroup });
+            var result = await pusher.TriggerAsync("group_chat","new_group", new { newGroup });
 
             return new ObjectResult(new { status = "success", data = newGroup });
         }
