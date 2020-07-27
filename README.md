@@ -1,4 +1,3 @@
- GroupMessage_SWA
  
  Group Message usando .NET CORE
 
