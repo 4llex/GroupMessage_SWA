@@ -20,9 +20,14 @@
      -> Selecione Sim para a mensagem: "Os recursos necessários para compilar e depurar estão ausentes do 'CollaText'. Adicioná-los?"
      -> Selecione Restaurar na mensagem informativa "Existem dependências não resolvidas".
 
-#4 - Crie e execute o projeto pressionando Debug (F5). https://localhost:5001/chat
+#4 - Crie e execute o projeto pressionando Debug (F5).   
 
-#5 - No seu navegador, navegue para http: // localhost: 5000 / . Você deve ver uma página padrão
+#5 - No seu navegador, navegue para http://localhost:5001
+
+    É necessario o registro dos usuários e login antes de utilizar o chat
+    O chat esta localizado na url: https://localhost:5001/chat
+
+
 
 
 #Construído com
