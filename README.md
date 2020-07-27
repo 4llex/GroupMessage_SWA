@@ -2,17 +2,17 @@
 # Group Message usando .NET CORE
 
 # Este é um aplicativo para troca de messangens em grupo usando o ASP.NET Core MVC e o Pusher.
-# Foi muito dificil e usei como referencia os seguintes links "Tutoriais":
+# Como Referencia foram utilizados os seguintes  "Tutoriais": 
     https://www.tektutorialshub.com/asp-net-core/asp-net-core-identity-tutorial/
     https://pusher.com/tutorials/group-chat-net
 
 
 #1 - Primeiro, clone o repositório na sua máquina local:
-    git clone https://github.com/4llex/GroupMessage_SWA.git
+#    git clone https://github.com/4llex/GroupMessage_SWA.git
 
 #2 - Em seguida, entre na pasta do projeto e abra-o com o VSCode:
-    $ cd GroupMessageApplication
-    $ code .
+#    $ cd GroupMessageApplication
+#    $ code .
 
 #3 - Em seguida, no seu VSCode, clique no arquivo Startup.cs.
 
