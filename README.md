@@ -1,4 +1,5 @@
  GroupMessage_SWA
+ 
  Group Message usando .NET CORE
 
  Este é um aplicativo para troca de messangens em grupo usando o ASP.NET Core MVC e o Pusher.
@@ -29,4 +30,5 @@
 
 #Construído com
   ASP.NET Core MVC - Uma estrutura de código aberto de plataforma cruzada e alto desempenho para a criação de aplicativos modernos, baseados na nuvem e conectados à Internet.
+  
   Pusher - APIs para permitir que os desenvolvedores criem recursos em tempo real
