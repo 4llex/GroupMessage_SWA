@@ -21,7 +21,7 @@ namespace GroupMessageApplication.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("{group_id}")]
+        [HttpGet("{group_id}")] ///api/message/{group_id}
         public IEnumerable<Message> GetById(int group_id)
         {
             return _context.Message.Where(gb => gb.GroupId == group_id);
@@ -37,6 +37,7 @@ namespace GroupMessageApplication.Controllers
             _context.Message.Add(new_message);
             _context.SaveChanges();
 
+            //Disparando um evento quando uma nova mensagem é recebida
             var options = new PusherOptions
             {
                 Cluster = "us2",

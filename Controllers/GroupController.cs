@@ -73,6 +73,8 @@ namespace GroupMessageApplication.Controllers
                 _context.SaveChanges();
             }
 
+            // Acionaremos um evento ao Pusher quando um novo grupo for criado, 
+            // para que outras pessoas vejam o grupo recém-criado
             var options = new PusherOptions
             {
                 Cluster = "us2",

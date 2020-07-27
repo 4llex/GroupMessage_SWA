@@ -1,6 +1,12 @@
-﻿let currentGroupId = null;
+﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
+// Write your JavaScript code.
 
-var pusher = new Pusher('1044657', {
+//Listen for new group
+// When a new group is created, we will call the reloadGroup() function. To listen for events, we need to initialize Pusher’s Javascript library.
+let currentGroupId = null;
+
+var pusher = new Pusher('09532d1997ef71999f27', {
     cluster: 'us2',
     encrypted: true
 });
@@ -11,6 +17,10 @@ channel.bind('new_group', function(data) {
     reloadGroup();
 });
 
+
+// -------------------------------------------------
+
+//Create a group by making an AJAX request to /api/group using a POST method.
 $("#CreateNewGroupButton").click(function(){
     // get all selected users
     let UserNames = $("input[name='UserName[]']:checked")
@@ -35,6 +45,8 @@ $("#CreateNewGroupButton").click(function(){
     
 });
 
+
+// When a user clicks on a group, we’ll make a request to get all messages in that group. Add the following code to wwwroot/js/site.js:
 // When a user clicks on a group, Load messages for that particular group.
 $(".group").click( function(){
     let group_id = $(this).attr("data-group_id");
@@ -71,6 +83,8 @@ $(".group").click( function(){
 
 });
 
+//Display the new group when a user creates a group
+//When a new group is created, we will reload the groups for every user.Add the following function to
 function reloadGroup(){
     $.get("/api/group", function( data ) {
         let groups = "";
@@ -83,13 +97,21 @@ function reloadGroup(){
     });
 }
 
+
+//Add new message via Ajax
+//When a user clicks on the send message button, we’ll make an AJAX call to the method we added... 
+//above with the message payload so it gets saved in the database.
 $("#SendMessage").click( function(){
     
     $.ajax({
         type: "POST",
         url: "/api/message",
-        data: JSON.stringify( {AddedBy: $("#UserName").val(), GroupId: $("#currentGroup").val(), message: $("#Message").val(), 
-        socketId: pusher.connection.socket_id} ),
+        data: JSON.stringify( {
+            AddedBy: $("#UserName").val(), 
+            GroupId: $("#currentGroup").val(), 
+            message: $("#Message").val(), 
+            socketId: pusher.connection.socket_id
+        }),
         success: (data) => { 
             console.log(data);
             $(".chat_body").append(`<div class="row chat_message float-right"><b>`+ data.data.addedBy +`: </b>`+ $("#Message").val() +` </div>`);
