@@ -4,7 +4,9 @@
 
  Este é um aplicativo para troca de messangens em grupo usando o ASP.NET Core MVC e o Pusher.
  Como Referencia foram utilizados os seguintes  "Tutoriais": 
+ 
     https://www.tektutorialshub.com/asp-net-core/asp-net-core-identity-tutorial/
+    
     https://pusher.com/tutorials/group-chat-net
 
 
